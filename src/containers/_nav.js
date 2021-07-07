@@ -18,6 +18,7 @@ const _nav =  [
   },
   {
     _tag: 'CSidebarNavItem',
+    id: 'nw-user-list',
     name: 'Users',
     to: '/users',
     icon: 'cil-user',

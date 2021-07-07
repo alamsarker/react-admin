@@ -6,6 +6,23 @@ import List from '../../shared/List/List'
 const props =  {
   name: 'Users',
   title: 'User Management',
+  actions: {
+    left: [
+      {
+        label: 'Delete',
+        color: 'danger',
+        href: '/users/add'
+      }
+    ],
+    right: [
+      {
+        id: 'nw-create-new-user',
+        label: 'New User',
+        color: 'success',
+        href: '/users/add'
+      }
+    ]
+  },
   config: {
     operationId: 'users',
     fields: [
@@ -19,11 +36,11 @@ const props =  {
     scopedSlots: {
       //'avatar': (item) => <td> <img src={item.avatar} alt={item.name} /></td>,
       'action': ({id}) => <td>
-        <CLink className="card-header-action" href={`users/${id}`}>Details</CLink> |
+        <CLink className="card-header-action nw-user-details" href={`users/${id}`}>Details</CLink> |
         <CLink
           href={`/users/edit/${id}`}
           rel="noreferrer noopener"
-          className="card-header-action"
+          className="card-header-action nw-user-edit"
         >
           Edit
         </CLink>

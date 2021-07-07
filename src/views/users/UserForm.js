@@ -1,39 +1,60 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Formik, Form } from 'formik';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  CButton
+} from '@coreui/react'
+import {
+  getSchema,
+  validator
+} from './UserSchema'
+import {
+  callApi,
+  selectApi
+} from '../../reducers/apiSlice'
 import { InputField } from '../../shared/Form'
-import UserSchema from './UserSchema'
+import Card from '../../shared/List/Card'
 
-// import { useSelector, useDispatch } from 'react-redux';
-// import {
-//   callApi,
-//   selectApi
-// } from '../../reducers/apiSlice'
 
-const UserForm = () => {
+const FormWithOutCard = ({match}) => {
 
-  // GET users/1
-  //userData = toUserDto(response.data)
+  const { loading, output = {
+    data: {}
+  }} = useSelector(selectApi)
 
-  // const {loading, output} = useSelector(selectApi)
-  // if(loading)
+  const dispatch = useDispatch()
 
-  // const dispatch = useDispatch()
+  //console.log(output.data, 'user')
+
+  useEffect(() => {
+    let {
+      params: {
+        id = 0
+      }
+    } = match;
+
+    console.log(id,  'Id')
+    if( id > 0 ) {
+      dispatch(callApi({
+        operationId : `users/${id}`
+      }))
+    }
+  }, [])
+
+  console.log(getSchema(output.data), 'schema')
 
   return (
     <Formik
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        email: ''
-      }}
-      validationSchema={UserSchema}
+      enableReinitialize = {true}
+      initialValues={getSchema(output.data)}
+      validationSchema={validator}
       onSubmit={(values) => {
         console.log(values, 'values')
         /*
         dispatch(callApi({
           operationId: 'users',
           parameters: {
-            method: 'POST',
+            method:  id > 0 'PUT' : 'POST',
             body: JSON.stringify(values)
           }
         }))*/
@@ -61,11 +82,16 @@ const UserForm = () => {
           placeholder="Enter Email Addresss"
         />
 
-        <button type="submit">Submit</button>
+        <CButton id="nw-submit-button" type="submit" color="primary">Save</CButton>
+        <CButton id="nw-cancel-button" href="/users" type="button" color="light">Cancel</CButton>
       </Form>
     </Formik>
   )
-
 }
+
+const UserForm = (props) => <Card {...{
+  name: 'User Form',
+  body: <FormWithOutCard {...props}  />
+}} />
 
 export default UserForm

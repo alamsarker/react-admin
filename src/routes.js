@@ -10,7 +10,7 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 
   { path: '/users', exact: true,  name: 'Users', component: Users },
-  { path: '/users/add', exact: true,  name: 'Add User', component: Users },
+  { path: '/users/add', exact: true,  name: 'Add User', component: UserForm },
   { path: '/users/edit/:id', exact: true,  name: 'Edit User', component: UserForm },
   { path: '/users/:id', exact: true, name: 'User Details', component: User }
 ];

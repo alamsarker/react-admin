@@ -51,6 +51,9 @@
   "devDependencies": {
     "@babel/core": "^7.13.14",
     "auto-changelog": "~2.2.1",
+    "chromedriver": "^91.0.1",
+    "geckodriver": "^2.0.1",
+    "nightwatch": "^1.7.7",
     "react-scripts": "^4.0.3"
   },
   "scripts": {

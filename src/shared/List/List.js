@@ -2,10 +2,11 @@ import React from 'react'
 
 import {
   CDataTable,
-  CPagination
+  CPagination,
 } from '@coreui/react'
 
 import Card from './Card'
+import Actions from './Actions'
 import useListApi from '../../hooks/useListApi'
 
 const List = props => {
@@ -18,6 +19,7 @@ const List = props => {
   } = useListApi(props.config)
 
   const body = <>
+    { props['actions'] && <Actions {...props.actions} />}
     <CDataTable {...{
       ...props.config,
       items,

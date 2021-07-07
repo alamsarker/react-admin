@@ -49,7 +49,8 @@ const User = ({match}) => {
 
   const body = <Details {...{
     loading,
-    data
+    data,
+    backUrl: '/users'
   }} />
 
   return (

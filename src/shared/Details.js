@@ -1,7 +1,10 @@
 import React from 'react'
+import {
+  CButton
+} from '@coreui/react'
 import Loader from './Loader'
 
-const Details = ({loading, data}) =>
+const Details = ({loading, data, backUrl}) =>
   loading ? <Loader/> : (
     <>
       {
@@ -22,6 +25,7 @@ const Details = ({loading, data}) =>
           </table>
         )
       }
+      <CButton href={backUrl} type="button" color="light">Cancel</CButton>
     </>
   )
 
