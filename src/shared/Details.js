@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   CButton
 } from '@coreui/react'
@@ -28,5 +29,15 @@ const Details = ({loading, data, backUrl}) =>
       <CButton href={backUrl} type="button" color="light">Cancel</CButton>
     </>
   )
+
+Details.defaultProps = {
+  data: []
+};
+
+Details.propTypes = {
+  loading: PropTypes.bool,
+  data: PropTypes.array,
+  backUrl: PropTypes.string
+}
 
 export default Details

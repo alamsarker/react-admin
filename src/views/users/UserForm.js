@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Formik, Form } from 'formik';
+import { Formik, Form, FieldArray } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   CButton
@@ -12,19 +12,24 @@ import {
   callApi,
   selectApi
 } from '../../reducers/apiSlice'
-import { InputField } from '../../shared/Form'
+import {
+  setMessage
+} from '../../reducers/toastSlice'
+import {
+  InputField,
+  ExperincesField,
+  FileField
+} from '../../shared/Form'
 import Card from '../../shared/List/Card'
 
 
 const FormWithOutCard = ({match}) => {
 
-  const { loading, output = {
+  const { output = {
     data: {}
   }} = useSelector(selectApi)
 
   const dispatch = useDispatch()
-
-  //console.log(output.data, 'user')
 
   useEffect(() => {
     let {
@@ -33,15 +38,12 @@ const FormWithOutCard = ({match}) => {
       }
     } = match;
 
-    console.log(id,  'Id')
     if( id > 0 ) {
       dispatch(callApi({
         operationId : `users/${id}`
       }))
     }
-  }, [])
-
-  console.log(getSchema(output.data), 'schema')
+  }, [dispatch, match])
 
   return (
     <Formik
@@ -58,33 +60,50 @@ const FormWithOutCard = ({match}) => {
             body: JSON.stringify(values)
           }
         }))*/
+
+        // No NEED if api call
+        dispatch(setMessage({
+          type: 'success',
+          message: 'User has been created successfully'
+        }))
       }}
     >
-      <Form>
-        <InputField
-          label="First Name"
-          name="firstName"
-          type="text"
-          placeholder="Enter First Name"
-        />
+      { ({setFieldValue}) => (
+        <Form>
+          <InputField
+            label="First Name"
+            name="firstName"
+            type="text"
+            placeholder="Enter First Name"
+          />
 
-        <InputField
-          label="Last Name"
-          name="lastName"
-          type="text"
-          placeholder="Enter Last Name"
-        />
+          <InputField
+            label="Last Name"
+            name="lastName"
+            type="text"
+            placeholder="Enter Last Name"
+          />
 
-        <InputField
-          label="Email Addresss"
-          name="email"
-          type="text"
-          placeholder="Enter Email Addresss"
-        />
+          <InputField
+            label="Email Addresss"
+            name="email"
+            type="text"
+            placeholder="Enter Email Addresss"
+          />
 
-        <CButton id="nw-submit-button" type="submit" color="primary">Save</CButton>
-        <CButton id="nw-cancel-button" href="/users" type="button" color="light">Cancel</CButton>
-      </Form>
+          <FieldArray name="experiences" component={ExperincesField} />
+
+          <FileField
+            name="profilePicture"
+            label="Profile Picture"
+            fieldValue = {setFieldValue}
+          />
+
+          <CButton id="nw-submit-button" type="submit" color="primary">Save</CButton>
+          {' '}
+          <CButton id="nw-cancel-button" href="/users" type="button" color="light">Cancel</CButton>
+        </Form>
+      )}
     </Formik>
   )
 }

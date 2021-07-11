@@ -13,24 +13,6 @@ const cardProps = {
   name: 'User Details'
 }
 
-/*const toUserDto = (user) => {
-  const {
-    id: Id,
-    email: Email,
-    first_name: FirstName,
-    last_name: LastName,
-    avatar: Avatar
-  } = user
-
-  return {
-    Id,
-    Email,
-    FirstName,
-    LastName,
-    Avatar
-  }
-}*/
-
 const User = ({match}) => {
   const { loading, details = {
     data: {}

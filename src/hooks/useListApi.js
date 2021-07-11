@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {
   callApi,
@@ -14,13 +13,6 @@ const useListApi = ({operationId}) => {
   }} = useSelector(selectApi)
 
   const dispatch = useDispatch()
-
-  useEffect(()=>{
-    dispatch(callApi({
-      operationId,
-			output: 'list'
-    }))
-  }, [dispatch, operationId ])
 
   return {
     page: list.page,

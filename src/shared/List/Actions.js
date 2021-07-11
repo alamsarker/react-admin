@@ -21,7 +21,7 @@ const Actions = ({left, right}) => {
       <CCol xl={6}>
         {
           right.length > 0 && right.map( ({id, label, href, color}, index) =>
-            <CButton key={index} size="sm" className="mx-1" variant="outline" id={id} href={href} color={color} >
+            <CButton key={index} className="mx-1" id={id} href={href} color={color} >
               {label}
             </CButton>
           )

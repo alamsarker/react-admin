@@ -1,4 +1,4 @@
-describe('Dashboard', function() {
+describe('Admin Panel', function() {
   before(browser => browser.url(browser.launchUrl));
     test('DashBoard', function (browser) {
       browser

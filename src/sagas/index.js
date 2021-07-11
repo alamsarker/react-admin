@@ -5,6 +5,10 @@ import {
   failed,
 } from '../reducers/apiSlice';
 
+import {
+  setMessage
+} from '../reducers/toastSlice';
+
 import fetcher from '../lib/fetcher'
 
 //const scheme = process.env.REACT_APP_API_PROTOCOL || 'https';
@@ -55,12 +59,26 @@ function* performApiAction(action) {
       output
     }));
 
+    if(parameters.method) {
+      yield put(setMessage({
+        type: 'success',
+        message: 'Operation has been completed successfully.'
+      }));
+    }
+
   } catch( error ) {
+    let err = error.response
+      ? error.response.obj.error : {
+        message: 'Api call failed or check your internet connection'
+      }
+
     yield put(failed({
-      error: error.response
-        ? error.response.obj.error : {
-          message: 'Api call failed or check your internet connection'
-        }
+      error: err
+    }));
+
+    yield put(setMessage({
+      type: 'error',
+      message: err
     }));
   }
 }

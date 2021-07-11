@@ -5,6 +5,8 @@ import {
   TheFooter,
   TheHeader
 } from './index'
+import ConfirmModal from '../shared/List/ConfirmModal'
+import Toaster from '../shared/Toaster'
 
 const TheLayout = () => {
 
@@ -14,6 +16,8 @@ const TheLayout = () => {
       <div className="c-wrapper">
         <TheHeader/>
         <div className="c-body">
+          <Toaster/>
+          <ConfirmModal/>
           <TheContent/>
         </div>
         <TheFooter/>
